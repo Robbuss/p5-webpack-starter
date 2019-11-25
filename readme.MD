@@ -10,7 +10,6 @@ run ```npm run hot```
 
 go to http://127.0.0.1:9000 
 
-
 ### Developing
 
 You can change the P5 functions in sketch.js and

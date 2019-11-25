@@ -5,7 +5,7 @@ const HOST = 'localhost'
 const PORT = 8080;
 
 module.exports = {
-    entry: "./app.js",
+    entry: "./src/app.js",
     output: {
         path: path.join(__dirname, 'public'),
         filename: "bundle.js"
