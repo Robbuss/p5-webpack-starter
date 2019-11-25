@@ -1,12 +1,16 @@
-export default function GameManager(p5,scl) {
+export default function GameManager(p5, scl) {
     let scoreDisplay;
-    let levelDisplay;
+    let levelDisplay; // move this to constructor
+    this.pause = p5.createDiv('Paused').hide();
+    this.pause.position(p5.width / 2, p5.height / 2);
 
+    this.state = true;
     this.score = 0;
     this.gameSpeed = 10;
     this.level = 100; // at each multiple of this points, the gameSpeed goes up., so after 10x food of 10 points at a 100
     this.currentLevel = 1;
-    
+
+
 
     this.showScore = () => {
         // show the Your score element
@@ -43,6 +47,17 @@ export default function GameManager(p5,scl) {
             p5.frameRate(this.gameSpeed);
             this.currentLevel = this.currentLevel + 1;
             this.updateLevel();
+        }
+    }
+
+    this.pausePlay = () => {
+        this.state = !this.state;
+        if (this.state) {
+            p5.frameRate(this.gameSpeed)
+            this.pause.hide()
+        } else {
+            this.pause.show()
+            p5.frameRate(0)
         }
     }
 

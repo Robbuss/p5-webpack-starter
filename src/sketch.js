@@ -68,6 +68,10 @@ export default function (p5) {
 
     // player game controls 
     p5.keyPressed = () => {
+        
+        if(p5.keyCode === p5.ESCAPE){
+            gameManager.pausePlay();
+        }
         if (p5.keyCode === p5.UP_ARROW) {
             snake.dir(0, -1);
         } else if (p5.keyCode === p5.RIGHT_ARROW) {
