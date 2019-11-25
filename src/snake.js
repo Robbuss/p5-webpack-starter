@@ -1,7 +1,7 @@
 export default function Snake(p5, scl) {
     // set up the snakes variables
     this.x = p5.width / 2;
-    this.y = p5.height / 2;
+    this.y = p5.height / 5;
     this.xspeed = 0;
     this.yspeed = 1;
     this.total = 2;
@@ -9,32 +9,26 @@ export default function Snake(p5, scl) {
 
     // snake can eat something and grow 
     this.eat = (pos) => {
-        let d = p5.dist(this.x, this.y, pos.x, pos.y);
-
-        if (d < 1) {
+        if (p5.dist(this.x, this.y, pos.x, pos.y) < 1) {
             this.total++;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    // set the direction of the snake 
+    // set the direction of the snake, prevention of dieing from pressing opposite direction button
     this.dir = (x, y) => {
-        if (Math.abs(this.xspeed - x) != 2) { // prevent dieing from pressing the opposite direction button
+        if (Math.abs(this.xspeed - x) != 2)
             this.xspeed = x;
-        }
-        if (Math.abs(this.yspeed - y) != 2) {
+        if (Math.abs(this.yspeed - y) != 2)
             this.yspeed = y;
-        }
     }
 
     // Checks if the snake dies, if so reset the gameSpeed and the Score
     this.death = () => {
         for (let i = 0; i < this.tail.length; i++) {
             let pos = this.tail[i];
-            let d = p5.dist(this.x, this.y, pos.x, pos.y);
-            if (d < 1) {
+            if (p5.dist(this.x, this.y, pos.x, pos.y) < 1) {
                 this.die();
                 return false;
             }

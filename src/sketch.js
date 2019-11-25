@@ -1,7 +1,7 @@
 import Snake from "./snake"
 import GameManager from "./gamemanager"
 export default function (p5) {
-    const scl = 10;
+    const scl = 10; // column size, need to be in sync with foodsize. 10 is dfault
     let food;
     let gameManager;
     let snake;
@@ -18,10 +18,6 @@ export default function (p5) {
         // new Snake and GameManager objects
         snake = new Snake(p5, scl);
         gameManager = new GameManager(p5, scl);
-
-        // initialize the score and leveldisplay
-        gameManager.showScore();
-        gameManager.showLevel();
 
         // set the gamespeed
         p5.frameRate(gameManager.gameSpeed);
@@ -41,10 +37,12 @@ export default function (p5) {
 
     p5.draw = () => {
         p5.background(220, 220, 220);
-        // check if the snake is dead, update and show the snake
+        // reset the game if the snake is dead
         let health = snake.death();
         if(!health)
             gameManager.resetGame()
+
+        // update position and show the snake
         snake.update();
         snake.show();
 
@@ -68,7 +66,6 @@ export default function (p5) {
 
     // player game controls 
     p5.keyPressed = () => {
-        
         if(p5.keyCode === p5.ESCAPE){
             gameManager.pausePlay();
         }
