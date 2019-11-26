@@ -3,8 +3,14 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HOST = 'localhost'
 const PORT = 8080;
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' for webpack 1
+        }
+    },
     entry: "./src/app.js",
     output: {
         path: path.join(__dirname, 'public'),
@@ -28,7 +34,22 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }
         ]
-    }
+    },
+    plugins: [
+        // make sure to include the plugin!
+        new VueLoaderPlugin()
+    ]
 };
